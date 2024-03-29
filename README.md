@@ -1,25 +1,25 @@
 # RIotBoard
 ## Product Introduction
-  EAIDK 310: Arm cpu and ARM MaLI GPU ,Main chip uses the RK3228H of mainstream performance Arm Soc.
-  CPU: ARM 4 core Cortex-A53 ,64 bit processor
-  RAM:LPDDR3 1GB
-  Wifi :2.4G/5GHz,Bluetooth 5.0
-  Power:Micro USB 5v/2A HDMI:2.0, 1*Type -A
-  Operation system :Linux and Android 8.1,
-  Video code API :Hard decoding and hardcode
+  * EAIDK 310: Arm cpu and ARM MaLI GPU ,Main chip uses the RK3228H of mainstream performance Arm Soc.
+  * CPU: ARM 4 core Cortex-A53 ,64 bit processor
+  * RAM:LPDDR3 1GB
+  * Wifi :2.4G/5GHz,Bluetooth 5.0
+  * Power:Micro USB 5v/2A HDMI:2.0, 1*Type -A
+  * Operation system :Linux and Android 8.1,
+  * Video code API :Hard decoding and hardcode
 
 What works:
-    - Mainline u-boot
-    - Mainline stable kernel, latest stable version on build date.
-    - Mainline ATF provided as Trusted Execution Environment
-    - All 4 cores are working
-    - Ethernet
-    - fbdev with ILI9341
+  - Mainline u-boot
+  - Mainline stable kernel, latest stable version on build date.
+  - Mainline ATF provided as Trusted Execution Environment
+  - All 4 cores are working
+  - Ethernet
+  - fbdev with ILI9341
 
 Releases:
-* Kernel 6.8.2, The latest stable version of the day.
-* Debian 12(bookworm)
-* default user: eaidk , password: 1234
+  * Kernel 6.8.2, The latest stable version of the day.
+  * Debian 12(bookworm)
+  * default user: eaidk , password: 1234
 
 ## Test `ILI9341`
 
@@ -177,35 +177,6 @@ CPU architecture: 8
 CPU variant	: 0x0
 CPU part	: 0xd03
 CPU revision	: 4
-
-
-```
-
-* 7zr b
-```sh
-riot@bullseye:~$ 7zr b
-
-7-Zip (a) [32] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,32 bits,2 CPUs LE)
-
-LE
-CPU Freq: 32000000 21333333 12800000 32000000 64000000 85333333 128000000 341333333 682666666
-
-RAM size:     981 MB,  # CPU hardware threads:   2
-RAM usage:    441 MB,  # Benchmark threads:      2
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:        504    95    515    491  |       8908    96    796    761
-23:        482    95    515    492  |       8730    96    791    756
-24:        469    96    528    505  |       8535    95    785    749
-25:        458    96    548    523  |       8331    95    777    742
-----------------------------------  | ------------------------------
-Avr:              95    526    503  |               95    787    752
-Tot:              95    657    627
-
 ```
 
 * openssl (crypto)
@@ -244,44 +215,6 @@ AES-128-GCM      54235.47k   166592.96k   349904.04k   520400.55k   614520.15k  
 
 
 ```
-
-## Networking (Wifi / Eth0 )
-
-```sh
-riot@bullseye:~$ lsusb
-Bus 001 Device 004: ID 148f:7601 Ralink Technology, Corp. MT7601U Wireless Adapter
-Bus 001 Device 003: ID 0bda:0811 Realtek Semiconductor Corp. Realtek 8812AU/8821AU 802.11ac WLAN Adapter [USB Wireless Dual-Band Adapter 2.4/5Ghz]
-Bus 001 Device 002: ID 1a40:0101 Terminus Technology Inc. Hub
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-
-riot@bullseye:~$ brctl show
-bridge name	bridge id		STP enabled	interfaces
-br-lan		8000.061f332cd6df	no		eth0
-							wlan0
-riot@bullseye:~$ iw wlan0 info
-Interface wlan0
-	ifindex 5
-	wdev 0x1
-	addr e8:4e:06:5b:fa:98
-	ssid homecreate
-	type AP
-	wiphy 0
-	channel 44 (5220 MHz), width: 40 MHz, center1: 5230 MHz
-	txpower 20.00 dBm
-riot@bullseye:~$ iw wlan1 info
-Interface wlan1
-	ifindex 9
-	wdev 0x200000001
-	addr 64:fb:81:65:b6:dc
-	type managed
-	wiphy 2
-	txpower 20.00 dBm
-	multicast TXQ:
-		qsz-byt	qsz-pkt	flows	drops	marks	overlmt	hashcol	tx-bytes	tx-packets
-		0	0	0	0	0	0	0	0		0
-
-```
-
 ## tailscale
 
 ```sh
