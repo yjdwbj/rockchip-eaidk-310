@@ -35,9 +35,9 @@ Releases:
 | GPIO2_C4 (36) |      DC      |
 | GPIO3_B0 (24) |      CS      |
 | GPIO2_B7 (7)  |    RESET     |
-|    VCC 3v3    |      BK      |
-|    VCC 3v3    |     VCC      |
-|      GND      |     GND      |
+|  VCC 3v3 (1)  |      BK      |
+|  VCC 3v3 (17) |     VCC      |
+|      GND (6)  |     GND      |
 
 
 * device tree overlay plugin patch
@@ -99,6 +99,48 @@ Releases:
 ![show_image](show_image.png)
 ![show_console](show_console.png)
 ![output](output.gif)
+
+### Xorg with IceWM and x11vnc
+
+```sh
+~$ sudo apt-get install icewm xinit xserver-xorg-video-fbdev x11vnc
+```
+
+* create a `/etc/X11/xorg.conf`.
+
+```sh
+~# cat /etc/X11/xorg.conf
+Section "Monitor"
+    Identifier          "Monitor0"
+EndSection
+Section "Device"
+         Option     "ShadowFB"              "false"
+         Option     "Rotate"                "CW"
+         Option     "fbdev"                 "/dev/fb0"
+         Option     "debug"                 "true"
+         Identifier  "Card0"
+         Driver      "fbdev"
+EndSection
+Section "Screen"
+    Identifier          "Screen0"
+    Device              "Card0"
+    Monitor             "Monitor0"
+    DefaultDepth        16
+EndSection
+
+```
+* run `startx`
+
+```sh
+~$ startx /usr/bin/icewm-session
+```
+* run `x11vnc`
+
+```sh
+~$ VNC_PASSWORD=123456 x11vnc -many  -display :2
+```
+![rk3328-icewm.png](rk3328-icewm.png)
+![icewm](icewm.gif)
 
 ## ESP-Hosted test
 
