@@ -377,6 +377,56 @@ tailscale0: flags=4305<UP,POINTOPOINT,RUNNING,NOARP,MULTICAST>  mtu 1280
 
 ## Boot log (booting from SD Card)
 
+* U-boot log
+
+```sh
+UserCapSize=7456MB
+FwPartOffset=2000 , 2000
+mmc0:cmd5,20
+nit read PBA: 0x4
+SecureInit read PBA: 0x404
+SecureInit read PBA: 0x804
+SecureInit read PBA: 0xc04
+SecureInit read PBA: 0x1004
+SecureInit ret = 0, SecureMode = 0
+atags_set_bootdevLoad OK, addr=0x200000, size=0xd6e20
+NOTICE:  BL31: v1.3(release):5315ffb0a
+NOTICE:  BL31: Built : 10:45:58, Oct 19 2021
+NOTICE:  BL31:Rockchip release version: vckchip_pmu_init: pd status 0xe
+INFO:    BL31: Initializing runtime services
+WARNING: No OPTEE provided by BL2 boot loader, Borvice opteed_fast
+INFO:    BL31: Preparing for EL3 exit to normal world
+INFO:    Entry point address = 0x200000
+INFO:    SPSR
+
+U-Boot 2024.07-rc1-lcy-build+ (May 05 2024 - 00:38:45 +0800)
+
+Model: Rockchip RK3328 EAIDK310
+DRAM:  1 GiB (effective 10Core:  250 devices, 27 uclasses, devicetree: separate
+MMC:   mmc@ff500000: 1, mmc@ff520000: 0, dwmmc@ff5f0000: 3
+Loading Environment from MMC...  0
+                                                                                                                                                                                                                                      0
+No EFI system partition
+No EFI system partition
+Failed to persist EFI variablw '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 1' failed
+Loading Boot0001 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14ff500000.bootdev.part_1' with extlinux
+1:      rockchip-kernel-6.8.9
+Retrieving file: /Image
+ console=tty1 consoleblank=0 loglevel=7
+Retrieving file: /dtb/rockchip/rk3328-eaidk-310.dtb
+Moving Image from 0x2080000 to 0x2200000, end=3f50000
+gzip compressed)
+   Data Size:    11910842 Bytes = 11.4 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifyin Device Tree in place at 0000000001f00000, end 0000000001f10cac
+Working FDT set to 1f00000
+
+```
+
 * custom motd
 
 ```sh
