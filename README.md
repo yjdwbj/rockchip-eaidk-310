@@ -143,6 +143,82 @@ EndSection
 ![rk3328-icewm.png](rk3328-icewm.png)
 ![icewm](icewm.gif)
 
+## Driver multiple i2c devices through one i2c adapter
+
+* Enable the i2c0 adapter, I tested not to uncomment the child node and just make the i2c0 state normal.
+
+```sh
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/{
+    fragment@0 {
+        target= <&i2c0>;
+        __overlay__ {
+	        status = "okay";
+          /*
+	        bmp180@77 {
+	        	compatible = "bosch,bmp180";
+	        	reg = <0x77>;
+	        	default-oversampling = <3>;
+                status = "okay";
+	        };
+
+	        hmc5883l@1e {
+	        	compatible = "honeywell,hmc5883l";
+	        	reg = <0x1e>;
+                status = "okay";
+	        };
+
+          oled@3c {
+            compatible = "sinowealth,sh1106";
+		        solomon,height= <64>;
+		        solomon,width= <128>;
+		        solomon,com-lrremap;
+            solomon,com-invdir;
+		        reg = <0x3c>;
+		        status = "okay";
+	        };
+          */
+        };
+    };
+};
+```
+
+* multiple i2c devices with `EAIDK-310` connect table.
+
+| eaidk-310 CON1 | BMP180 | HMC5883L | SH1106 |
+| :------------: | :----: | :------: | :-----:|
+|   I2C0_SDA 3   |  SDA   |   SDA    | SDA    |
+|   I2C0_SCL 5   |  SCL   |   SCL    | SCL    |
+|    GND   9     |  GND   |   GND    | GND    |
+|    VCC   1     |  VCC   |   VCC    | VCC    |
+
+
+* i2cdetect
+
+```sh
+~$ i2cdetect -yes 0
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1e --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- 3c -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- 77
+
+```
+
+![sh1106.png](https://github.com/yjdwbj/pyi2cdev/blob/main/sh1106.png)
+![sh1106_run.gif](https://github.com/yjdwbj/pyi2cdev/blob/main/sh1106_run.gif)
+
+
 ## ESP-Hosted test
 
 * [ESP-Hosted](https://github.com/espressif/esp-hosted) is an open source solution that provides a way to use Espressif SoCs and modules as a communication co-processor. This solution provides wireless connectivity (Wi-Fi and BT/BLE) to the host microprocessor or microcontroller, allowing it to communicate with other devices.
